@@ -1,19 +1,19 @@
 import React,{useState} from "react";
 import { Link,useNavigate } from "react-router-dom";
-
+import {signInStart,signInSuccess,signInFailure} from '../redux/user/userSlice'
+import { useDispatch, useSelector } from "react-redux";
 function SignIn() {
   const[formData,setFormData] = useState({})
-  const [error,setError] = useState(false)
-  const [loading,setLoading] = useState(false)
+  const {loading,error} = useSelector((state)=>state.user)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const handleChange =(e)=>{
       setFormData({...formData,[e.target.id]:e.target.value})
   }
   const handleSubmit = async (e)=>{
     e.preventDefault()
     try{
-      setLoading(true)
-      setError(false)
+      dispatch(signInStart())
       const res= await fetch('/api/auth/signin',{
         method:'POST',
         headers:{
@@ -22,15 +22,14 @@ function SignIn() {
         body:JSON.stringify(formData),
       })
       const data = await res.json()
-      setLoading(false)
+      dispatch(signInSuccess(data))
       if(data.success === false){
-        setError(true)
+        dispatch(signInFailure(data))
         return
       }
       navigate('/')
     }catch(error){
-      setLoading(false)
-      setError(true)
+      dispatch(signInFailure(error))
     }
    
   }
@@ -40,7 +39,7 @@ function SignIn() {
       <form className="flex flex-col gap-4">
         
         <input
-          type="emil"
+          type="email"
           placeholder="Email"
           id="email"
           className="bg-slate-100 p-3 rounded-lg"
@@ -63,7 +62,7 @@ function SignIn() {
           <span className="text-blue-500">sign Up</span>
         </Link>
       </div>
-      <p className="text-red-700 mt-5">{error && 'something went wrong!'}</p>
+      <p className="text-red-700 mt-5">{error.message? error ||'something went wrong!':""}</p>
     </div>
   );
 }
