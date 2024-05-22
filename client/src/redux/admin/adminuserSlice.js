@@ -12,7 +12,7 @@ export const deleteUsers = createAsyncThunk('user/deleteUser',async(userId)=>{
 })
 
 export const updateUsers = createAsyncThunk('user/updateUser',async(user)=>{
-    const response = await axios.put(`/api/admin/update/${user.id}`,user)
+    const response = await axios.put(`/api/admin/update/${user._id}`,user)
     return response.data
 })
 
@@ -40,10 +40,10 @@ const adminUserSlice = createSlice({
             state.error =   action.error.message
         })
         .addCase(deleteUsers.fulfilled,(state,action)=>{
-            state.userarr = state.userarr.filter(user=>user.id!==action.payload)
+            state.userarr = state.userarr.filter(user=>user._id!==action.payload)
         }) 
         .addCase(updateUsers.fulfilled,(state,action)=>{
-            const index = state.userarr.findIndex(user=>user.id===action.payload.id)
+            const index = state.userarr.findIndex(user=>user._id===action.payload._id)
             if (index !== -1) {
                 state.userarr[index] = action.payload;
             }

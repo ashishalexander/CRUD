@@ -6,6 +6,7 @@ import axios from 'axios'
 export const adminLogin = createAsyncThunk('admin/login',async(loginData,thunkApI)=>{
     try {
         const response = await axios.post('/api/admin/login',loginData)
+        console.log(response.data)
         return response.data
     } catch (error) {
         return thunkApI.rejectWithValue(error.response.data)

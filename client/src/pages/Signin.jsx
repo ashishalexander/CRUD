@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 import {
   signInStart,
   signInSuccess,
@@ -40,7 +41,9 @@ function SignIn() {
     }
   };
   return (
-    <div className="p-3 max-w-lg mx-auto">
+    <div>
+      <Header />
+       <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl text-center font-semibold my-7">Sign In</h1>
       <form className="flex flex-col gap-4">
         <input
@@ -76,6 +79,8 @@ function SignIn() {
         {error ? error.message || "something went wrong!" : ""}
       </p>
     </div>
+    </div>
+   
   );
 }
 

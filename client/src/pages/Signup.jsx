@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import { Link,useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import Header from "../components/Header";
 
 function Signup() {
   const[formData,setFormData] = useState({})
@@ -36,7 +37,9 @@ function Signup() {
    
   }
   return (
-    <div className="p-3 max-w-lg mx-auto">
+    <div>
+      <Header />
+      <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl text-center font-semibold my-7">Sign Up</h1>
       <form className="flex flex-col gap-4">
         <input
@@ -73,6 +76,8 @@ function Signup() {
       </div>
       <p className="text-red-700 mt-5">{error && 'something went wrong!'}</p>
     </div>
+    </div>
+    
   );
 }
 

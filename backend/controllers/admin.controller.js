@@ -1,5 +1,6 @@
 import Admin from '../model/adminModel.js';
 import User from '../model/user model.js'
+import jwt from 'jsonwebtoken'
 
 export const AdminLogin = async (req, res,next) => {
     const { email, password } = req.body;
@@ -12,10 +13,14 @@ export const AdminLogin = async (req, res,next) => {
         if (admin.password !== password) {
             return res.status(400).json({ msg: 'Invalid credentials' });
         }
-        return res.status(200).json({ msg: 'Login success' });
+        const token = jwt.sign({id:admin._id,email:admin.email},process.env.JWT_SECRET,{
+          expiresIn:'1h'
+        })
+        res.cookie('access_token',token,{httpOnly:true})
+        res.status(200).json({ msg: 'Login success' });
     } catch (error) {
         next(error)
-        console.log(error)
+       
     }
 };
 

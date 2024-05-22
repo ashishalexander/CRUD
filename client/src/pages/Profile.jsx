@@ -18,6 +18,7 @@ import {
   deleteUserSuccess,
   signOut,
 } from "../redux/user/userSlice";
+import Header from "../components/Header";
 function Profile() {
   const dispatch = useDispatch();
   const fileRef = useRef(null);
@@ -109,7 +110,9 @@ function Profile() {
     }
   }
   return (
-    <div className="p-3 max-w-lg mx-auto">
+    <div>
+      <Header />
+      <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
@@ -174,6 +177,8 @@ function Profile() {
         {updateSuccess && "User is updated successfully"}
       </p>
     </div>
+    </div>
+   
   );
 }
 

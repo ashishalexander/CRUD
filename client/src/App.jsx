@@ -13,17 +13,18 @@ import AdminDashboard from './pages/adminDashboard'
 function App() {
   return (
     <BrowserRouter>
-      <Header />
+      
       <Routes>
         <Route path="/sign-in" element={<Signin />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path='/admin/login'Component={AdminLogin} />
+        <Route path='/admin/dashboard' Component={AdminDashboard} />
 
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path='/admin/dashboard' Component={AdminDashboard} />
+          
         </Route>
       </Routes>
     </BrowserRouter>
