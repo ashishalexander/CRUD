@@ -15,6 +15,12 @@ export const updateUsers = createAsyncThunk('user/updateUser',async(user)=>{
     const response = await axios.put(`/api/admin/update/${user._id}`,user)
     return response.data
 })
+export const createUser = createAsyncThunk('admin/createUser', async (user) => {
+    const response = await axios.post('/api/auth/signup', user);
+    return response.data;
+});
+
+
 
 const adminUserSlice = createSlice({
     name:'adminUsers',
@@ -48,6 +54,9 @@ const adminUserSlice = createSlice({
                 state.userarr[index] = action.payload;
             }
         }) 
+        .addCase(createUser.fulfilled, (state, action) => {
+            state.userarr.push(action.payload);
+        });
     }
 })
 
